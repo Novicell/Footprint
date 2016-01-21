@@ -1,4 +1,10 @@
 # Novicell Footprint.js
+Welcome to the Footprint documentation.
+Footprint is a behavioral targeting and marketing automation olugin for the Umbraco CMS.
+https://our.umbraco.org/projects/website-utilities/footprint/
+
+## Footprint using Javascript
+
 The Novicell Footprint Umbraco package provides a JavaScript interface (footprint.js) to the back-end Footprint API for the current visitor.
 
 The library provides the following methods:
@@ -10,7 +16,7 @@ footprint.currentVisitor.setProperties({ key1: value1, key2: value2 }, onSuccess
 ```
 The `onSuccess` and `onError` arguments are (optional) callbacks for the underlying AJAX calls to the back-end.
 
-## Example
+### Example
 Say you have a newsletter form and you would like to add the visitor to the 'newsletter subscribers' segment when the visitor signs up to receive the newsletter.
 
 First, we include the Footprint library:
