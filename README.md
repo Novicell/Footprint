@@ -1,4 +1,4 @@
-Welcome to the Footprint documentation.
+# Welcome to the Footprint documentation.
 Footprint is a behavioral targeting and marketing automation plugin for the Umbraco CMS.
 https://our.umbraco.org/projects/website-utilities/footprint/
 - PS made by www.novicell.dk
