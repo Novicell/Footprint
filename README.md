@@ -125,3 +125,4 @@ Add the following element to the Footprint configuration file to enable storing 
     database="myDatabase"
     collection="myFootprintCollection" />
 ```
+You can add any and all of the storage options! However, if you later add a storage option, that storage option will only collect data from that moment; it will not automagically get all the previous data from another storage option.
