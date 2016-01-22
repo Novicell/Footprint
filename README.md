@@ -68,3 +68,42 @@ document.getElementById("newsletter-subscribe-form").addEventListener("submit", 
     });
 });
 ```
+
+## Getting started with Footprint.NET
+If you do not wish to use the JavaScript library, you can use the .NET library included in the Umbraco package. To import the members of the .NET package, add a reference to the ncBehaviouralTargeting.Library.dll file included in the package.
+
+Below is a quick guide to getting started for developers:
+
+### Registration
+In order to register behavioural data on a visitor, you will need to use the `CurrentVisitor` class.
+
+#### User identity
+A visitor will be given a unique identifier if they don't already have one. In case another identifier is already on file in a 3rd party system, such as a login system, then the following code should be used to override the users identity:
+```csharp
+void CurrentVisitor.SetVisitorId(string value);
+```
+#### Property registration
+In order to register behavioural data and custom data for a visitor, the following two methods can be used:
+```csharp
+void CurrentVisitor.SetProperty(string key, object value);
+void CurrentVisitor.SetProperty(Dictionary<string, object> values);
+```
+#### Quick start guide to content delivery
+There are several ways to use a visitors segments to deliver content. A few helpers have been made available for easy use.
+
+##### IPublishedContent extensions
+The by far easiest way to deliver segmented content is through segmented properties on content nodes. By building data types on the `Footprint Content` property editor, it's possible to wrap any in-built and custom Umbraco property editors.
+
+When fetching a segmented property, the following extension methods to <code>IPusblishedContent</code> have been made available:
+
+```csharp         
+object Model.Content.GetSegmentedValue(string propertyAlias);
+T Model.Content.GetSegmentedValue<T>(string propertyAlias);
+```
+These work just as if you were using Umbracos own `GetPropertyValue` methods. If the property requested isn't a segmented property, it will fall back to Umbracos own `GetPropertyValue` method, so this can be substituted in most cases.
+
+##### Razor
+If custom code or logic needs to be executed based on a visitors segments, the following can be used:
+```csharp
+bool CurrentVisitor.IsInSegment(string segmentAlias);
+```
