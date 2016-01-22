@@ -107,3 +107,21 @@ If custom code or logic needs to be executed based on a visitors segments, the f
 ```csharp
 bool CurrentVisitor.IsInSegment(string segmentAlias);
 ```
+
+## Data storage options
+We support the following data storage options for storing visitor segments:
+
+### Cookies
+Adding the `<cookies />` to the Footprint configuration file will enable storing segments in cookies on the client. All the segments the visitor is added to, have a separate cookie with a separate expiration time depending on the Persistence setting of the segment.
+
+### SQL database
+Adding the `<sql connectionStringName="my connection string name" />` will enable storing segments in a SQL database. We only use a very small number of standard SQL statements so this should work on most SQL databases. Remember to specify the connection string name from the `<connectionStrings>` element in Web.config, NOT the connection string!
+
+### MongoDB
+Add the following element to the Footprint configuration file to enable storing segments (and visitor properties) in MongoDB:
+```xml
+<mongoDb
+    connectionString="mongodb://connection-string-here/myDatabase"
+    database="myDatabase"
+    collection="myFootprintCollection" />
+```
