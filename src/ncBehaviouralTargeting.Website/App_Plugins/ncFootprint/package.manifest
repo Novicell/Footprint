@@ -1,0 +1,45 @@
+﻿{
+	javascript: [
+		'~/App_Plugins/ncFootprint/dist/scripts/backoffice.min.js',
+
+		'~/App_Plugins/ncFootprint/Directives/Base.directives.js',
+
+		'~/App_Plugins/ncFootprint/Resources/Dashboard.resource.js',
+		'~/App_Plugins/ncFootprint/Resources/PropertyEditor.resource.js',
+		'~/App_Plugins/ncFootprint/Resources/Segment.resource.js',
+		'~/App_Plugins/ncFootprint/Resources/SegmentUtility.resource.js',
+		'~/App_Plugins/ncFootprint/Resources/SegmentOperator.resource.js',
+		'~/App_Plugins/ncFootprint/Resources/Property.resource.js',
+		'~/App_Plugins/ncFootprint/Resources/Action.resource.js',
+		'~/App_Plugins/ncFootprint/Resources/Query.resource.js',
+
+		'~/App_Plugins/ncFootprint/Backoffice/ncbt/Controllers/Base.controller.js',
+
+		'~/App_Plugins/ncFootprint/Backoffice/ncbt/Controllers/Dashboards/BaseDashboard.controller.js',
+		'~/App_Plugins/ncFootprint/Backoffice/ncbt/Controllers/Dashboards/OverviewDashboard.controller.js',
+
+		'~/App_Plugins/ncFootprint/Backoffice/ncbt/Controllers/Views/BaseOverview.controller.js',
+		'~/App_Plugins/ncFootprint/Backoffice/ncbt/Controllers/Views/BaseEdit.controller.js',
+		'~/App_Plugins/ncFootprint/Backoffice/ncbt/Controllers/Views/SettingsOverview.controller.js',
+		'~/App_Plugins/ncFootprint/Backoffice/ncbt/Controllers/Views/SegmentOverview.controller.js',
+		'~/App_Plugins/ncFootprint/Backoffice/ncbt/Controllers/Views/SegmentEdit.controller.js',
+		'~/App_Plugins/ncFootprint/Backoffice/ncbt/Controllers/Views/SegmentCreate.controller.js',
+		'~/App_Plugins/ncFootprint/Backoffice/ncbt/Controllers/Views/ActionOverview.controller.js',
+		'~/App_Plugins/ncFootprint/Backoffice/ncbt/Controllers/Views/ActionEdit.controller.js',
+		'~/App_Plugins/ncFootprint/Backoffice/ncbt/Controllers/Views/ActionCreate.controller.js',
+		'~/App_Plugins/ncFootprint/Backoffice/ncbt/Controllers/Views/PropertyOverview.controller.js',
+		'~/App_Plugins/ncFootprint/Backoffice/ncbt/Controllers/Views/PropertyEdit.controller.js',
+		'~/App_Plugins/ncFootprint/Backoffice/ncbt/Controllers/Views/PropertyCreate.controller.js',
+		'~/App_Plugins/ncFootprint/Backoffice/ncbt/Controllers/Views/QueryOverview.controller.js',
+
+		'~/App_Plugins/ncFootprint/Dialogs/Controllers/SegmentPickerDialog.controller.js',
+		'~/App_Plugins/ncFootprint/Dialogs/Controllers/PropertyPickerDialog.controller.js',
+		'~/App_Plugins/ncFootprint/Dialogs/Controllers/SegmentSettingsDialog.controller.js',
+
+		'~/App_Plugins/ncFootprint/Editors/Controllers/FootprintContent.controller.js',
+		'~/App_Plugins/ncFootprint/Editors/Controllers/FootprintContent.Prevalues.controller.js'
+	],
+	css: [
+		'~/App_Plugins/ncFootprint/dist/css/backoffice.min.css'
+	]
+}

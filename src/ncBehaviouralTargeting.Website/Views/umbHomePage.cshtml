@@ -1,0 +1,32 @@
+﻿@using ncBehaviouralTargeting.Library.Tracking
+@inherits UmbracoTemplatePage
+@{
+    Layout = "umbLayout.cshtml";
+
+    // Check if in segment
+    var isUmbracian = CurrentVisitor.IsInSegment("umbracians");
+}
+@{
+    if (isUmbracian)
+    {
+        Html.RenderPartial("Umbracian");
+    }
+}
+
+@{ Html.RenderPartial("umbHomepageBanner"); }
+<!-- Main -->
+<div id="main-wrapper">
+    <div id="main" class="container">
+        <div class="row">
+            <div class="12u">
+                @{ Html.RenderPartial("umbFeatures"); }
+            </div>
+        </div>
+        <div class="row">
+            <div class="12u">
+                @{   Html.RenderPartial("umbNewsOverviewWidget"); }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Main -->

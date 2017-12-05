@@ -1,0 +1,30 @@
+﻿<div class="ncbt-editor" ng-controller="Novicell.Footprint.Editors.FootprintContent.Controller">
+
+    <div class="umb-property">
+        <ng-form name="propertyForm">
+            <div class="control-group umb-control-group ncbt-control-group" ng-class="{'hidelabel':hideLabel == true}">
+                <div class="umb-el-wrap">
+                    <label class="control-label" ng-if="hideLabel != true">
+                        {{model.label}}
+                        <small ng-bind-html="model.description"></small>
+                    </label>
+                    <div class="controls controls-row">
+                        <ul class="nav nav-tabs ncbt-control-tabs">
+                            <li ng-class="{'active': selectedSegmentAlias == editor.alias}"
+                                ng-repeat="editor in model.value.segments | orderBy: 'sortOrder' : false">
+                                <a ng-click="setSelectedSegment(editor.alias)">{{getSegmentByAlias(editor.alias).DisplayName}}</a>
+                            </li>
+                            <li>
+                                <a class="ncbt-control-tab-add" ng-click="openSettings()"><i class="icon-settings"></i></a>
+                            </li>
+                        </ul>
+                        <div class="ncbt-control-header">Segmented Content</div>
+                        <div class="ncbt-control-editor" ng-show="editor == selectedEditor" ng-repeat="editor in editors">
+                            <umb-editor model="editor"></umb-editor>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-form>
+    </div>
+</div>

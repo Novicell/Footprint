@@ -1,0 +1,17 @@
+﻿<div class="ncbt-editor" ng-controller="Novicell.Footprint.Editors.FootprintContent.Prevalues.Controller">
+
+    <umb-property property="properties.selectedEditor">
+        <div>
+            <select name="selectedEditor"
+                    ng-model="model.value.selectedEditor"
+                    required
+                    ng-options="e.alias as e.name for e in content.availableEditors"></select>
+            <span class="help-inline" val-msg-for="selectedEditor" val-toggle-msg="required">Required</span>
+        </div>
+    </umb-property>
+
+    <umb-property property="preValue"
+                  ng-repeat="preValue in model.value.preValues">
+        <umb-editor model="preValue" is-pre-value="true"></umb-editor>
+    </umb-property>
+</div>

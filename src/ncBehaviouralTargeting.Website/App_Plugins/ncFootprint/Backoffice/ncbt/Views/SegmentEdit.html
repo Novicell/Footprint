@@ -1,0 +1,241 @@
+﻿<form name="segmentForm" ng-submit="saveSegment()" ng-controller="ncFootprint.Backoffice.SegmentEdit.Controller">
+    <umb-panel class="ncbt-section-panel">
+        <umb-header tabs="tabs">
+            <div class="span7">
+                <h1>{{data.node.DisplayName}}</h1>
+            </div>
+            <div class="span5">
+                <div class="btn-toolbar pull-right umb-btn-toolbar">
+                    <div class="btn-group">
+                        <button class="btn btn-success" ng-disabled="segmentForm.$invalid">Save</button>
+                    </div>
+                </div>
+            </div>
+        </umb-header>
+
+        <umb-tab-view>
+
+            <umb-tab id="tab1" rel="General">
+                <umb-pane>
+                    <!-- General -->
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="form-horizontal">
+
+                                <div class="control-group">
+                                    <label class="control-label">Name</label>
+                                    <div class="controls">
+                                        <input type="text" name="DisplayName" ng-model="data.node.DisplayName" placeholder="Segment Name" required />
+                                        <div class="error red" ng-show="segmentForm.DisplayName.$dirty && segmentForm.DisplayName.$invalid">
+                                            <small class="error" ng-show="segmentForm.DisplayName.$error.required">
+                                                Segment name is required.
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label">Alias</label>
+                                    <div class="controls">
+                                        <input type="text" name="Alias" ng-model="data.node.Alias" placeholder="Segment Alias" required readonly="" />
+                                        <div class="error red" ng-show="segmentForm.Alias.$dirty && segmentForm.Alias.$invalid">
+                                            <small class="error" ng-show="segmentForm.Alias.$error.required">
+                                                Segment alias is required.
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label">Persistence</label>
+                                    <div class="controls">
+
+                                        <input type="number" name="Persistence" ncbt-str-to-number ng-model="data.node.Persistence" placeholder="Days" ng-if="data.node.Persistence != '0' && data.node.Persistence != '-1'" required="" />
+                                        <div class="btn-group">
+                                            <button class="btn dropdown-toggle btn-operator" data-toggle="dropdown">
+                                                <span ng-switch="data.node.Persistence">
+                                                    <span ng-switch-when="0">None</span>
+                                                    <span ng-switch-when="-1">Permanent</span>
+                                                    <span ng-switch-default>Days</span>
+                                                </span>
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a ng-click="data.node.Persistence = 0">None</a></li>
+                                                <li><a ng-click="data.node.Persistence = -1">Permanent</a></li>
+                                                <li><a ng-click="data.node.Persistence = 1">Days</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="error red" ng-show="segmentForm.Persistence.$dirty && segmentForm.Persistence.$invalid">
+                                            <small class="error" ng-show="segmentForm.Persistence.$error.required">
+                                                Persistence policy is required.
+                                            </small>
+                                        </div>
+                                        <div>
+                                            <small>
+                                                Pesistence defines a policy on how to persist a visitors inclusion in the segment.<br/>
+                                                The policy 'None' means that a visitor will be checked against the segment on every check.<br/>
+                                                The policy 'Permanent' means that a visitor will only be required to fit the segment once.<br/>
+                                                The policy 'Days' means that a visitor will be checked against the segment, and if they are in it, it will be saved for X days before a new check will be made.<br/>
+                                                Can be used to persist segments making use of visitors query string or device specifications.
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Id</label>
+                                    <div class="controls">
+                                        <input type="text" name="Id" readonly="" value="{{data.node.Id}}" />
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </umb-pane>
+            </umb-tab>
+
+            <umb-tab id="tab2" rel="Criteria">
+                <umb-pane>
+                    <!-- Criteria -->
+                    <div class="span12">
+                        <input type="checkbox" ng-model="data.showTips" /> Enable help text
+                    </div>
+                    <div class="span9">
+                        <div class="criteria-group" ng-repeat="criterionGroup in data.node.CriterionGroups track by $index">
+                            <div class="criteria-group-header">
+                                <!-- Disabled include/exclude for now -->
+                                <select class="hide" ng-model="criterionGroup.IsInclude">
+                                    <option value="true">Includes</option>
+                                    <option value="false">Excludes</option>
+                                </select>
+                                <h5 class="cursor-hand pull-right" ng-click="removeCriterionGroup(criterionGroup)">
+                                    Remove
+                                </h5>
+                                <h5>
+                                    Criteria group
+                                </h5>
+                            </div>
+                            <div ui-sortable="sortableOptions" ng-model="criterionGroup.Criterions">
+                                <div class="criteria-group-item" ng-repeat="criterion in criterionGroup.Criterions track by $index">
+                                    <div class="criteria-group-item-actions">
+                                        <i class="icon icon-navigation"></i>
+                                        <i class="icon icon-delete" ng-click="removeCriterion(criterionGroup, criterion)"></i>
+                                    </div>
+                                    <div class="criteria-group-item-config row" ng-scope="">
+                                        <div class="btn-group span4">
+                                            <button class="btn dropdown-toggle btn-operator span12" data-toggle="dropdown">
+                                                {{getProperty(criterion.PropertyAlias).DisplayName}}
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li ng-repeat="property in data.properties track by property.Id">
+                                                    <a ng-click="setCriterionProperty(criterion, property.Alias)">{{property.DisplayName}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="btn-group span3">
+                                            <button class="btn dropdown-toggle btn-operator span12" data-toggle="dropdown">
+                                                {{getOperator(criterion.OperatorId).DisplayName}}
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li ng-repeat="operator in data.operators | filter : {DataType: (getProperty(criterion.PropertyAlias).DataType || getOperator(criterion.OperatorId).DataType)} : true track by operator.Id">
+                                                    <a ng-click="setCriterionOperator(criterion, operator)">{{operator.DisplayName}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div ng-switch="criterion.Operator.DataType" class="span5">
+                                            <div ng-switch-when="6">
+                                                <input ng-model="criterion.PropertyValue" class="span12" type="text" datepicker-popup="{{'yyyy.MM.dd'}}" show-weeks="false" show-button-bar="true" clear-text="Execution day" starting-day="1" placeholder="Current day (on execution time)"/>
+                                            </div>
+
+                                            <div ng-switch-when="1">
+                                                <div ng-switch="criterion.PropertyAlias">
+                                                    <div ng-switch-when="ncbt.pageId">
+                                                        <div class="span12">
+                                                            <input type="text" class="span8" readonly="" value="{{criterion.pageName}}" />
+                                                            <div class="btn span4" ng-click="btnSelectNode(criterion)">Select node</div>
+                                                        </div>
+                                                    </div>
+                                                    <div ng-switch-default>
+                                                        <input ng-model="criterion.PropertyValue" ncbt-str-to-number class="span12" type="number" min="-2147483648" max="2147483647" />
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+
+                                            <div ng-switch-when="2">
+                                                <input ng-model="criterion.PropertyValue" ncbt-str-to-number class="span12" type="number" min="-9223372036854775808" max="9223372036854775807" />
+                                            </div>
+
+                                            <div ng-switch-when="3">
+                                                <input ng-model="criterion.PropertyValue" ncbt-str-to-number class="span12" type="number" />
+                                            </div>
+
+                                            <div ng-switch-when="4" class="btn-group span12">
+                                                <button class="btn dropdown-toggle btn-operator span12" data-toggle="dropdown">
+                                                    {{criterion.PropertyValue}}
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" ng-init="criterion.PropertyValue = 'true'">
+                                                    <li><a ng-click="criterion.PropertyValue = 'true'">true</a></li>
+                                                    <li><a ng-click="criterion.PropertyValue = 'false'">false</a></li>
+                                                </ul>
+                                            </div>
+
+                                            <div ng-switch-default>
+                                                <input ng-model="criterion.PropertyValue" class="span12" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="span12 criteria-group-item-description" ng-if="data.showTips">
+                                            <dl class="dl-horizontal">
+                                                <dt>Description</dt>
+                                                <dd>{{getProperty(criterion.PropertyAlias).Description}}</dd>
+                                                <dt>Type</dt>
+                                                <dd>{{getDataType(getProperty(criterion.PropertyAlias).DataType)}}</dd>
+                                                <dt>Examples</dt>
+                                                <dd>{{getProperty(criterion.PropertyAlias).Examples}}</dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="criteria-group-operator">Or</div>
+                                    <hr />
+                                </div>
+                            </div>
+                            <div class="criteria-group-operator add" ng-click="addCriterion(criterionGroup)">Add criterion</div>
+                        </div>
+
+                        <div class="criteria-group">
+                            <div class="criteria-group-operator add" ng-click="addCriterionGroup()">Add criteria group</div>
+                        </div>
+                    </div>
+                    <div class="span3 criteria-results">
+                        <div class="criteria-results-header">
+                            <h5>
+                                Estimation
+                            </h5>
+                        </div>
+                        <div google-chart chart="data.chart" class="criteria-results-chart"></div>
+                        <div class="criteria-results-chart-details">
+                            <div class="share">{{ (userShare[1].v / (userShare[1].v + userShareInverse[1].v)) * 100 | number:2}}%</div>
+                            <div class="metric">of all visitors</div>
+                        </div>
+                        <div class="criteria-results-details">
+                            <div class="metric">Matched visitors</div>
+                            <div class="share">{{userShare[1].v}}</div>
+                        </div>
+                        <div class="criteria-results-details">
+                            <div class="metric">Total number of visitors</div>
+                            <div class="share">{{userShare[1].v + userShareInverse[1].v}}</div>
+                        </div>
+                    </div>
+
+                </umb-pane>
+            </umb-tab>
+
+        </umb-tab-view>
+
+    </umb-panel>
+</form>

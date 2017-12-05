@@ -1,0 +1,86 @@
+﻿@using ncBehaviouralTargeting.Library.Tracking
+@using ncBehaviouralTargeting.Library.Umbraco
+@using Newtonsoft.Json
+@inherits UmbracoTemplatePage
+@{
+    Layout = "umbLayout.cshtml";
+
+    // Get segmented title
+    var segmentedPageTitle  = Model.Content.GetSegmentedValue<string>("title"); // Segmented property
+    var oldPageTitle        = Model.Content.GetPropertyValue<string>("title"); // Umbraco native property
+    
+    // Graceful callback to node name if empty
+    var pageTitle = string.IsNullOrWhiteSpace(segmentedPageTitle)
+        ? CurrentPage.Name
+        : segmentedPageTitle;
+
+    // Register behaviour
+    //CurrentVisitor.SetProperty("lastVisitedTextNode", Model.Content.Id);
+    //CurrentVisitor.SetProperty("campariFactor", 1993);
+    
+    //CurrentVisitor.PushToVisitorProperty("myArray", 4);
+    //CurrentVisitor.PushToVisitorProperty("myArray", 6);
+    //CurrentVisitor.PushToVisitorProperty("myArray", 20);
+    //CurrentVisitor.PushToVisitorProperty("myArray", 101);
+    //CurrentVisitor.PushToVisitorProperty("myArray", 32);
+    //CurrentVisitor.SetProperty("birthdate", new DateTime(2015, 6, 18));
+}
+
+<script>
+    CurrentVisitor.SetProperty("lastVisitedTextNode", @Model.Content.Id);
+    CurrentVisitor.SetProperty("campariFactor", 1994);
+    CurrentVisitor.SetProperty("birthdate", new Date(1994,8,3));
+    // new Date() also works
+</script>
+
+<div>@JsonConvert.SerializeObject(Model.Content.GetSegmentedValue("mk2Checkbox"))</div>
+
+<div>@JsonConvert.SerializeObject(Model.Content.GetSegmentedValue("umbCheckbox"))</div>
+
+<div>@JsonConvert.SerializeObject(Model.Content.GetSegmentedValue("mk2ContentPicker"))</div>
+
+<div>@JsonConvert.SerializeObject(Model.Content.GetSegmentedValue("umbContentPicker"))</div>
+
+<div>@JsonConvert.SerializeObject(Model.Content.GetSegmentedValue("mk2Grid"))</div>
+
+<div>@JsonConvert.SerializeObject(Model.Content.GetSegmentedValue("umbGrid"))</div>
+
+
+<div id="main-wrapper">
+    <div id="main" class="container">
+        <div class="row">
+            <div class="9u skel-cell-mainContent">
+                <div class="content content-left">
+                    <!-- Content -->
+                    <article class="is-page-content">
+                        <header>
+                            <h2>@pageTitle</h2>
+                        </header>
+                        <section>
+                            @if (string.IsNullOrWhiteSpace(CurrentPage.Image) == false)
+                            {
+                                <span class="image image-full"><img src="@CurrentPage.Image" alt="" /></span>
+                            }
+
+                            @Html.Raw(Model.Content.GetSegmentedValue<string>("bodyText"))
+                        </section>                           
+                    </article>
+                    <!-- /Content -->
+                </div>
+            </div>
+            <div class="3u">
+                <div class="sidebar">
+                    <!-- Sidebar -->
+                    @{ Html.RenderPartial("umbLatestNewsWidget"); }
+                    <!-- /Sidebar -->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="12u">
+                @{ Html.RenderPartial("umbFeatures"); }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Main -->

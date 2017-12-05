@@ -1,0 +1,145 @@
+﻿<form name="actionForm" ng-submit="saveAction()" ng-controller="ncFootprint.Backoffice.ActionEdit.Controller">
+    <umb-panel class="ncbt-section-panel">
+        <umb-header tabs="tabs">
+            <div class="span7">
+                <h1>Edit action - {{data.node.DisplayName}}</h1>
+            </div>
+            <div class="span5">
+                <div class="btn-toolbar pull-right umb-btn-toolbar">
+                    <div class="btn-group">
+                        <button class="btn btn-success" ng-disabled="actionForm.$invalid">Save</button>
+                    </div>
+                </div>
+            </div>
+        </umb-header>
+
+        <umb-tab-view>
+
+            <umb-tab id="tab1" rel="General">
+                <umb-pane>
+                    <!-- General -->
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="form-horizontal">
+                                <div class="control-group">
+                                    <label class="control-label">Id</label>
+                                    <div class="controls">
+                                        <input type="text" name="Id" readonly="" value="{{data.node.Id}}" />
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label">Name</label>
+                                    <div class="controls">
+                                        <input type="text" name="DisplayName" ng-model="data.node.DisplayName" placeholder="Action Name" required />
+                                        <div class="error red" ng-show="actionForm.DisplayName.$dirty && actionForm.DisplayName.$invalid">
+                                            <small class="error" ng-show="actionForm.DisplayName.$error.required">
+                                                Action name is required.
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label">Alias</label>
+                                    <div class="controls">
+                                        <input type="text" name="Alias" ng-model="data.node.Alias" placeholder="Action Alias" required readonly="" />
+                                        <div class="error red" ng-show="actionForm.Alias.$dirty && actionForm.Alias.$invalid">
+                                            <small class="error" ng-show="actionForm.Alias.$error.required">
+                                                Action alias is required.
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label">Action Type</label>
+                                    <div class="controls">
+                                        <select ng-model="data.node.ActionType" ng-options="type.id as type.label for type in data.actionTypes">
+                                            <option value="" ng-if="false"></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label">Required Segment</label>
+                                    <div class="controls">
+                                        <div>
+                                            <div class="input-append">
+                                                <input type="text" class="input-xlarge" name="SegmentName" readonly="" ng-if="data.node.SegmentId != 0" value="{{data.segment.DisplayName}}" required/>
+                                                <div class="btn" ng-click="btnSelectSegment()">Select segment</div>
+                                            </div>
+                                        </div>
+                                        <div class="error red" ng-show="actionForm.SegmentName.$dirty && actionForm.SegmentName.$invalid">
+                                            <small class="error" ng-show="actionForm.SegmentName.$error.required">
+                                                Segment is required for the action to be triggered.
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Type: Inactive -->
+                                <div ng-if="data.node.ActionType == 0">
+
+                                </div>
+
+                                <!-- Type: Email -->
+                                <div ng-if="data.node.ActionType == 1">
+                                    <div class="control-group">
+                                        <label class="control-label">Email Property</label>
+                                        <div class="controls">
+                                            <div>
+                                                <div class="input-append">
+                                                    <input type="text" class="input-xlarge" name="EmailProperty" readonly="" ng-if="data.node.EmailPropertyId != 0" value="{{data.emailProperty.DisplayName}}" required />
+                                                    <div class="btn" ng-click="btnSelectEmailProperty()">Select property</div>
+                                                </div>
+                                            </div>
+                                            <div class="error red" ng-show="actionForm.EmailProperty.$dirty && actionForm.EmailProperty.$invalid">
+                                                <small class="error" ng-show="actionForm.EmailProperty.$error.required">
+                                                    Email property is required.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label class="control-label">Email Subject</label>
+                                        <div class="controls">
+                                            <input type="text" name="EmailSubject" ng-model="data.node.EmailSubject" placeholder="Email Subject" required />
+                                            <div class="error red" ng-show="actionForm.EmailSubject.$dirty && actionForm.EmailSubject.$invalid">
+                                                <small class="error" ng-show="actionForm.EmailSubject.$error.required">
+                                                    Email subject is required.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label class="control-label">Email Node</label>
+                                        <div class="controls">
+                                            <div>
+                                                <div class="input-append">
+                                                    <input type="text" class="input-xlarge" name="EmailNode" readonly="" ng-if="data.node.EmailNodeId != 0" value="{{data.emailNode.name}}" required />
+                                                    <div class="btn" ng-click="btnSelectEmailNode()">Select node</div>
+                                                </div>
+                                            </div>
+                                            <div class="error red" ng-show="actionForm.EmailNode.$dirty && actionForm.EmailNode.$invalid">
+                                                <small class="error" ng-show="actionForm.EmailNode.$error.required">
+                                                    Email node is required.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </umb-pane>
+            </umb-tab>
+
+        </umb-tab-view>
+
+    </umb-panel>
+</form>

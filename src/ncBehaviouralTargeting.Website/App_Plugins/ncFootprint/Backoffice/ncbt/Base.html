@@ -1,0 +1,9 @@
+﻿<div ng-controller="ncFootprint.Backoffice.Base.Controller" class="ncbt-section-base">
+    <umb-panel ng-include="templatePartialURL"></umb-panel>
+    <ul class="umb-panel-footer-nav nav nav-pills">
+        <li ng-repeat="crumb in breadcrumbs">
+            <a href="{{crumb.url}}" ng-if="crumb.url != null">{{crumb.text}}</a>
+            <a ng-if="crumb.url == null">{{crumb.text}}</a>
+        </li>
+    </ul>
+</div>

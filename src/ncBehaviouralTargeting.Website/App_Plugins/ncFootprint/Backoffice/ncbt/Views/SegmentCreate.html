@@ -1,0 +1,56 @@
+﻿<form name="segmentForm" ng-submit="saveSegment()" ng-controller="ncFootprint.Backoffice.SegmentCreate.Controller">
+    <umb-panel class="ncbt-section-panel">
+        <umb-header tabs="tabs">
+            <div class="span7">
+                <h1>Create segment</h1>
+            </div>
+            <div class="span5">
+                <div class="btn-toolbar pull-right umb-btn-toolbar">
+                    <div class="btn-group">
+                        <button class="btn btn-success" ng-disabled="segmentForm.$invalid">Save</button>
+                    </div>
+                </div>
+            </div>
+        </umb-header>
+
+        <umb-tab-view>
+
+            <umb-tab id="tab1" rel="General">
+                <umb-pane>
+                    <!-- General -->
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="form-horizontal">
+                                <div class="control-group">
+                                    <label class="control-label">Name</label>
+                                    <div class="controls">
+                                        <input type="text" name="DisplayName" ng-model="data.node.DisplayName" placeholder="Segment Name" required />
+                                        <div class="error red" ng-show="segmentForm.DisplayName.$dirty && segmentForm.DisplayName.$invalid">
+                                            <small class="error" ng-show="segmentForm.DisplayName.$error.required">
+                                                Segment name is required.
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label">Alias</label>
+                                    <div class="controls">
+                                        <input type="text" name="Alias" ng-model="data.node.Alias" placeholder="Segment Alias" required />
+                                        <div class="error red" ng-show="segmentForm.Alias.$dirty && segmentForm.Alias.$invalid">
+                                            <small class="error" ng-show="segmentForm.Alias.$error.required">
+                                                Segment alias is required.
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </umb-pane>
+            </umb-tab>
+
+        </umb-tab-view>
+
+    </umb-panel>
+</form>

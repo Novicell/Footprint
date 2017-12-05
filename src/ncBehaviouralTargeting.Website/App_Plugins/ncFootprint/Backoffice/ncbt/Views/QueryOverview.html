@@ -1,0 +1,100 @@
+﻿<umb-panel ng-controller="ncFootprint.Backoffice.QueryOverview.Controller" class="ncbt-section-panel">
+    <umb-header>
+        <div class="row-fluid">
+            <div class="umb-headline-editor-wrapper span12 ng-scope">
+                <h1>Visitors</h1>
+            </div>
+        </div>
+    </umb-header>
+
+    <div class="umb-panel-body">
+        <div class="umb-pane">
+            <form ng-submit="search()" method="get" role="search">
+                <div class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label">Segments</label>
+
+                        <div class="controls">
+                            <div ng-repeat="segment in searchForm.segment.segments track by segment.Alias" style="display: inline;padding-right:10px">
+                                <label style="display: inline;white-space: nowrap">
+                                    <input type="checkbox"
+                                           value="{{segment.Alias}}"
+                                           ng-checked="searchForm.segment.selected.indexOf(segment.Alias) > 0"
+                                           ng-click="toggleSegmentSelection(segment.Alias)"/> {{segment.DisplayName}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="controls">
+                            <div style="display: inline;padding-right:10px">
+                                <label style="display: inline; white-space: nowrap">
+                                    <input type="checkbox" ng-model="searchForm.excludeIncompleteProfiles" ng-init="checked=true" /> Only complete profiles
+                                </label>
+
+                            </div>
+                            <div style="display: inline;padding-right:10px">
+                                <label style="display: inline; white-space: nowrap">
+                                    <input type="checkbox" ng-model="searchForm.excludeNcbtProperties" ng-init="checked=true" /> Only human readable data
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="controls">
+                            <button class="btn" type="submit" ng-disabled="searchDisabled()">
+                                <span class="icon icon-search"></span>
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <hr/>
+            <div ng-if="searchResults">
+                <div ng-if="searchResults.documents.length > 0">
+                    <div ng-if="searchResults.headers.length === 0">
+                        <em>No human-readable columns found for this data.</em>
+                    </div>
+
+                    <div class="ncbt-table-responsive">
+                        <table id="query-overview" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th ng-repeat="header in searchResults.headers track by $index">
+                                        {{header}}
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="doc in searchResults.documents track by $index">
+                                    <td ng-repeat="(key, value) in doc track by key">
+                                        <pre>{{value}}</pre>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div>
+                        <button class="btn" ng-click="previousPage()" ng-disabled="previousPageDisabled()">&lt; Previous</button>
+                        {{searchResults.page + 1}} / {{searchResults.pages}}
+                        <button class="btn" ng-click="nextPage()" ng-disabled="nextPageDisabled()">Next &gt;</button>
+
+                        <a class="btn pull-right" ng-href="{{exportUrl()}}" target="_blank">Export as CSV</a>
+                    </div>
+
+                    <hr/>
+
+
+                </div>
+                <div ng-if="searchResults.documents.length === 0">
+                    <i>No results found</i>
+                </div>
+            </div>
+        </div>
+    </div>
+</umb-panel>

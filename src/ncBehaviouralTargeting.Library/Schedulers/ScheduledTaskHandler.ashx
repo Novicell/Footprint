@@ -1,0 +1,1 @@
+﻿<%@ WebHandler Language="C#" CodeBehind="ScheduledTaskHandler.ashx.cs" Class="ncBehaviouralTargeting.Library.Schedulers.ScheduledTaskHandler" %>

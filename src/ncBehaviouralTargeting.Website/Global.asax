@@ -1,0 +1,1 @@
+﻿<%@ Application Inherits="ncBehaviouralTargeting.Website.Global" Language="C#" %>

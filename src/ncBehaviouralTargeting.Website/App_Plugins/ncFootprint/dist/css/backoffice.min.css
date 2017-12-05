@@ -1,0 +1,330 @@
+/*
+
+Visual Studio-like style based on original C# coloring by Jason Diamond <jason@diamond.name>
+
+*/
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: white;
+  color: black;
+  -webkit-text-size-adjust: none;
+}
+.hljs-comment,
+.hljs-annotation,
+.diff .hljs-header,
+.hljs-chunk,
+.apache .hljs-cbracket {
+  color: #008000;
+}
+.hljs-keyword,
+.hljs-id,
+.hljs-built_in,
+.smalltalk .hljs-class,
+.hljs-winutils,
+.bash .hljs-variable,
+.tex .hljs-command,
+.hljs-request,
+.hljs-status,
+.nginx .hljs-title,
+.xml .hljs-tag,
+.xml .hljs-tag .hljs-value {
+  color: #00f;
+}
+.hljs-string,
+.hljs-title,
+.hljs-parent,
+.hljs-tag .hljs-value,
+.hljs-rule .hljs-value,
+.ruby .hljs-symbol,
+.ruby .hljs-symbol .hljs-string,
+.hljs-template_tag,
+.django .hljs-variable,
+.hljs-addition,
+.hljs-flow,
+.hljs-stream,
+.apache .hljs-tag,
+.hljs-date,
+.tex .hljs-formula,
+.coffeescript .hljs-attribute,
+.hljs-name {
+  color: #a31515;
+}
+.ruby .hljs-string,
+.hljs-decorator,
+.hljs-filter .hljs-argument,
+.hljs-localvars,
+.hljs-array,
+.hljs-attr_selector,
+.hljs-pseudo,
+.hljs-pi,
+.hljs-doctype,
+.hljs-deletion,
+.hljs-envvar,
+.hljs-shebang,
+.hljs-preprocessor,
+.hljs-pragma,
+.userType,
+.apache .hljs-sqbracket,
+.nginx .hljs-built_in,
+.tex .hljs-special,
+.hljs-prompt {
+  color: #2b91af;
+}
+.hljs-doctag,
+.hljs-xmlDocTag {
+  color: #808080;
+}
+.hljs-type,
+.hljs-typename {
+  font-weight: bold;
+}
+.vhdl .hljs-string {
+  color: #666666;
+}
+.vhdl .hljs-literal {
+  color: #a31515;
+}
+.vhdl .hljs-attribute {
+  color: #00b0e8;
+}
+.xml .hljs-attribute {
+  color: #f00;
+}
+
+/* Editors
+********************/
+.ncbt-editor .ncbt-control-group {
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: 0 !important;
+}
+.ncbt-editor .ncbt-control-tabs {
+  border-bottom: 0;
+  margin: 0;
+  position: absolute;
+  font-size: 13px;
+}
+.ncbt-editor .ncbt-control-tabs li > a {
+  color: #000;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+.ncbt-editor .ncbt-control-tabs li.active > a {
+  border-bottom-color: transparent;
+}
+.ncbt-editor .ncbt-control-tabs i {
+  color: #ddd;
+}
+.ncbt-editor .ncbt-control-header {
+  float: right;
+  font-size: 13px;
+  font-weight: bold;
+  color: #b3b3b3;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 10px 1px;
+}
+.ncbt-editor .ncbt-control-editor {
+  margin-top: 30px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  border-top-left-radius: 0;
+}
+.ncbt-editor .ncbt-control-editor .radio input[type="radio"],
+.ncbt-editor .ncbt-control-editor .checkbox input[type="checkbox"] {
+  float: none;
+  margin-left: 0;
+}
+.ncbt-editor .ncbt-control-editor .umb-editor {
+  min-width: 99%;
+}
+/* Backoffice Section
+********************/
+.ncbt-section-base .ncbt-section-panel input.umb-search-field {
+  width: initial;
+  width: auto;
+  padding: 4px 0 1px 16px;
+}
+.ncbt-section-base .ncbt-section-panel .umb-pane a {
+  text-decoration: underline;
+}
+.ncbt-section-base .ncbt-section-panel .umb-pane a.btn {
+  text-decoration: none;
+}
+.ncbt-section-base .ncbt-section-panel .umb-pane .cell-tools a,
+.ncbt-section-base .ncbt-section-panel .umb-pane .cell-tools-add a,
+.ncbt-section-base .ncbt-section-panel .umb-pane ul a {
+  text-decoration: none;
+}
+.ncbt-section-base .ncbt-section-panel .umb-pane .label-success,
+.ncbt-section-base .ncbt-section-panel .umb-pane .badge-success {
+  background-color: green;
+}
+.ncbt-section-base .ncbt-section-panel .ncbt-section-panel-header a a {
+  color: #08c;
+  text-decoration: none;
+}
+.ncbt-section-base .ncbt-section-panel .ncbt-section-panel-header a .usky-grid a {
+  color: #222;
+}
+.ncbt-section-base .ncbt-section-panel .form-horizontal .fixed-inline {
+  padding: 8px 10px 0 0 !important;
+  display: block;
+}
+.ncbt-section-base .ncbt-section-panel .umb-mediapicker {
+  background: white;
+}
+.ncbt-section-base .ncbt-section-panel .umb-mediapicker img {
+  height: 132px;
+  overflow: hidden;
+}
+.ncbt-section-base .ncbt-section-panel .umb-mediapicker .picked-image {
+  display: inline-block;
+  position: relative;
+  right: 0;
+  top: 70px;
+}
+.ncbt-section-base .ncbt-section-panel .cursor-hand {
+  cursor: pointer;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-group {
+  border: 1px solid #d9d9d9;
+  margin-right: 10px;
+  margin-bottom: 30px;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-group .criteria-group-header {
+  border-bottom: 1px solid #d9d9d9;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-group .criteria-group-header h5 {
+  margin: 0;
+  padding: 10px;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-group .criteria-group-header select {
+  float: right;
+  margin: 5px 10px;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-group hr {
+  margin: 0;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-group .criteria-group-operator {
+  font-size: 13px;
+  font-weight: bold;
+  color: #b3b3b3;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 5px 10px;
+  text-align: center;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-group .criteria-group-operator.add {
+  cursor: pointer;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-group .criteria-group-item {
+  padding: 10px;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-group .criteria-group-item.ui-sortable-helper .criteria-group-item-description,
+.ncbt-section-base .ncbt-section-panel .criteria-group .criteria-group-item.ui-sortable-helper .criteria-group-operator,
+.ncbt-section-base .ncbt-section-panel .criteria-group .criteria-group-item.ui-sortable-helper hr {
+  display: none;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-group .criteria-group-item .btn-operator {
+  text-align: left;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-group .criteria-group-item .btn-operator .caret {
+  right: 9px;
+  position: absolute;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-group .criteria-group-item .criteria-group-item-actions {
+  float: right;
+  text-align: right;
+  font-size: 20px;
+  padding: 4px 0;
+  color: #b3b3b3;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-group .criteria-group-item .criteria-group-item-config {
+  margin-right: 50px;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-group .criteria-group-item .criteria-group-item-config .btn-group + .btn-group {
+  margin-left: 0;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-group .criteria-group-item .criteria-group-item-description {
+  padding: 2px 0;
+  font-style: italic;
+  min-height: 25px;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-group .criteria-group-item .criteria-group-item-description dl {
+  margin: 10px 0 0 0;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-group .criteria-group-item .criteria-group-item-description dl dt {
+  width: 100px;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-group .criteria-group-item .criteria-group-item-description dl dd {
+  margin-left: 120px;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-group .criteria-group-item input[class*="span"],
+.ncbt-section-base .ncbt-section-panel .criteria-group .criteria-group-item select[class*="span"],
+.ncbt-section-base .ncbt-section-panel .criteria-group .criteria-group-item textarea[class*="span"],
+.ncbt-section-base .ncbt-section-panel .criteria-group .criteria-group-item .uneditable-input[class*="span"] {
+  float: left;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-results {
+  border: 1px solid #d9d9d9;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-results .criteria-results-header {
+  border-bottom: 1px solid #d9d9d9;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-results .criteria-results-header h5 {
+  margin: 0;
+  padding: 10px;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-results .criteria-results-chart-details {
+  margin-top: -140px;
+  position: absolute;
+  width: 355px;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-results .criteria-results-chart-details .metric {
+  text-align: center;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-results .criteria-results-chart-details .share {
+  text-align: center;
+  font-size: 25px;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-results .criteria-results-details {
+  width: 100%;
+  border-top: 1px solid #d9d9d9;
+  padding: 5px 0;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-results .criteria-results-details .metric {
+  text-align: center;
+  color: #999;
+}
+.ncbt-section-base .ncbt-section-panel .criteria-results .criteria-results-details .share {
+  text-align: center;
+  font-size: 17px;
+}
+.ncbt-section-dashboard .ncbt-section-dashboard-quick-guide {
+  margin-top: 20px;
+  padding-right: 10px;
+}
+/* Backoffice Dialogs
+********************/
+.ncbt-dialog-segment-settings ul.umb-tree {
+  margin-bottom: 10px;
+}
+.ncbt-dialog-segment-settings ul.umb-tree li.root ul li > div {
+  padding-left: 20px;
+}
+.ncbt-dialog-segment-settings ul.umb-tree li.root ul li > div i {
+  padding: 0 5px;
+  cursor: pointer;
+}
+.ncbt-table-responsive {
+    width: 100%;
+    overflow-y: hidden;
+    min-height: 0.01%;
+    overflow-x: auto;
+    margin-bottom: 15px;
+}

@@ -1,0 +1,589 @@
+﻿<Action runat="install" undo="false" alias="ExecuteSql">
+<![CDATA[
+
+
+CREATE TABLE [ncBtAction](
+	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	[Alias] [nvarchar](255) NOT NULL,
+	[DisplayName] [nvarchar](255) NOT NULL,
+	[SegmentId] [int] NOT NULL,
+	[ActionType] [int] NOT NULL,
+	[EmailPropertyId] [int] NULL,
+	[EmailSubject] [nvarchar](255) NULL,
+	[EmailNodeId] [int] NULL
+)
+
+CREATE TABLE [ncBtSegment](
+	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	[Alias] [nvarchar](255) NOT NULL,
+	[DisplayName] [nvarchar](255) NOT NULL,
+)
+
+CREATE TABLE [ncBtProperty](
+	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	[Alias] [nvarchar](255) NOT NULL,
+	[DisplayName] [nvarchar](255) NOT NULL,
+	[DataType] [int] NOT NULL,
+	[Description] [nvarchar](1000) NULL,
+	[Examples] [nvarchar](1000) NULL,
+)
+
+CREATE TABLE [ncBtOperator](
+	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	[DisplayName] [nvarchar](255) NULL,
+	[IsInverted] [bit] NOT NULL,
+	[OperatorType] [int] NOT NULL,
+	[DataType] [int] NOT NULL,
+)
+
+CREATE TABLE [ncBtCriterionGroup](
+	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	[SegmentId] [int] NOT NULL,
+	[IsInclude] [bit] NOT NULL,
+	[SortOrder] [int] NOT NULL,
+)
+
+CREATE TABLE [ncBtCriterion](
+	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	[CriterionGroupId] [int] NOT NULL,
+	[OperatorId] [int] NOT NULL,
+	[PropertyAlias] [nvarchar](255) NOT NULL,
+	[PropertyValue] [nvarchar](255) NULL,
+	[SortOrder] [int] NOT NULL,
+)
+
+CREATE TYPE [IdList] AS TABLE(
+	[Id] [int] NULL
+)
+CREATE TYPE [AliasList] AS TABLE(
+	[Alias] [varchar](255) NULL
+)
+
+
+INSERT INTO [ncBtOperator] ([DisplayName], [IsInverted], [OperatorType], [DataType]) VALUES (N'contains', 0, 4, 5);
+INSERT INTO [ncBtOperator] ([DisplayName], [IsInverted], [OperatorType], [DataType]) VALUES (N'is equal to', 0, 1, 1);
+INSERT INTO [ncBtOperator] ([DisplayName], [IsInverted], [OperatorType], [DataType]) VALUES (N'is not equal to', 1, 1, 1);
+INSERT INTO [ncBtOperator] ([DisplayName], [IsInverted], [OperatorType], [DataType]) VALUES (N'starts with', 0, 5, 5);
+INSERT INTO [ncBtOperator] ([DisplayName], [IsInverted], [OperatorType], [DataType]) VALUES (N'is greater than', 0, 3, 1);
+INSERT INTO [ncBtOperator] ([DisplayName], [IsInverted], [OperatorType], [DataType]) VALUES (N'ends with', 0, 6, 5);
+INSERT INTO [ncBtOperator] ([DisplayName], [IsInverted], [OperatorType], [DataType]) VALUES (N'is less than', 0, 2, 1);
+INSERT INTO [ncBtOperator] ([DisplayName], [IsInverted], [OperatorType], [DataType]) VALUES (N'is equal to', 0, 1, 5);
+INSERT INTO [ncBtOperator] ([DisplayName], [IsInverted], [OperatorType], [DataType]) VALUES (N'doesn''t contain', 1, 4, 5);
+INSERT INTO [ncBtOperator] ([DisplayName], [IsInverted], [OperatorType], [DataType]) VALUES (N'does not start with', 1, 5, 5);
+INSERT INTO [ncBtOperator] ([DisplayName], [IsInverted], [OperatorType], [DataType]) VALUES (N'does not end with', 1, 6, 5);
+INSERT INTO [ncBtOperator] ([DisplayName], [IsInverted], [OperatorType], [DataType]) VALUES (N'is not equal to', 1, 1, 5);
+INSERT INTO [ncBtOperator] ([DisplayName], [IsInverted], [OperatorType], [DataType]) VALUES (N'is equal to', 0, 1, 3);
+INSERT INTO [ncBtOperator] ([DisplayName], [IsInverted], [OperatorType], [DataType]) VALUES (N'is not equal to', 0, 1, 3);
+INSERT INTO [ncBtOperator] ([DisplayName], [IsInverted], [OperatorType], [DataType]) VALUES (N'is greater than', 0, 3, 3);
+INSERT INTO [ncBtOperator] ([DisplayName], [IsInverted], [OperatorType], [DataType]) VALUES (N'is less than', 0, 2, 3);
+INSERT INTO [ncBtOperator] ([DisplayName], [IsInverted], [OperatorType], [DataType]) VALUES (N'is less than or equal to', 1, 3, 1);
+INSERT INTO [ncBtOperator] ([DisplayName], [IsInverted], [OperatorType], [DataType]) VALUES (N'is greater than or equal to', 1, 2, 1);
+INSERT INTO [ncBtOperator] ([DisplayName], [IsInverted], [OperatorType], [DataType]) VALUES (N'is', 0, 1, 6);
+INSERT INTO [ncBtOperator] ([DisplayName], [IsInverted], [OperatorType], [DataType]) VALUES (N'is before', 0, 2, 6);
+INSERT INTO [ncBtOperator] ([DisplayName], [IsInverted], [OperatorType], [DataType]) VALUES (N'is after', 0, 3, 6);
+
+]]>
+</Action>
+
+<Action runat="install" undo="false" alias="ExecuteSql">
+<![CDATA[
+
+
+-- =============================================
+-- Author:		SLY
+-- Create date: <2015-04-16>
+-- =============================================
+CREATE PROCEDURE [OperatorGetByIdsStp] 
+	@IdList AS [IdList] READONLY
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	-- Fetch operators as temp table
+    SELECT
+                    o.*
+	INTO			
+					#tmpDataOperators
+    FROM
+                    ncBtOperator o
+    WHERE
+                    o.Id IN (SELECT Id FROM @IdList)
+
+	-- Fetch operator from temp table
+	SELECT
+					* 
+	FROM
+					#tmpDataOperators
+END
+
+]]>
+</Action>
+
+<Action runat="install" undo="false" alias="ExecuteSql">
+<![CDATA[
+
+-- =============================================
+-- Author:		SLY
+-- Create date: <2015-04-16>
+-- =============================================
+CREATE PROCEDURE [OperatorGetByIdStp] 
+	@Id int = 0
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	-- Convert to list and call stored procedure for lists
+	DECLARE @IdList AS [IdList];
+	INSERT INTO @IdList (Id) VALUES (@Id)
+	EXEC			[OperatorGetByIdsStp]
+					@IdList = @IdList
+END
+
+]]>
+</Action>
+
+<Action runat="install" undo="false" alias="ExecuteSql">
+<![CDATA[
+
+-- =============================================
+-- Author:		SLY
+-- Create date: <2015-04-16>
+-- =============================================
+CREATE PROCEDURE [CriterionGetByCriterionGroupIdsStp] 
+	@IdList AS [IdList] READONLY
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	-- Fetch criterions as temp table
+    SELECT
+                    c.*
+	INTO			
+					#tmpDataCriterions 
+    FROM
+                    ncBtCriterion c
+    WHERE
+                    c.CriterionGroupId IN (SELECT Id FROM @IdList)
+
+	-- Fetch criterions from temp table
+	SELECT
+					* 
+	FROM
+					#tmpDataCriterions
+
+	-- Fetch criterion operator ids from temp table as a new id list
+	DECLARE @OperatorIdList AS [IdList];
+	INSERT INTO
+					@OperatorIdList
+		SELECT DISTINCT
+					OperatorId AS Id
+		FROM
+					#tmpDataCriterions
+	
+	-- Fetch operators using stored procedure
+	EXEC			[OperatorGetByIdsStp]
+					@IdList = @OperatorIdList
+END
+
+]]>
+</Action>
+
+<Action runat="install" undo="false" alias="ExecuteSql">
+<![CDATA[
+
+-- =============================================
+-- Author:		SLY
+-- Create date: <2015-04-16>
+-- =============================================
+CREATE PROCEDURE [CriterionGetByIdsStp] 
+	@IdList AS [IdList] READONLY
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	-- Fetch criterion as temp table
+    SELECT
+                    c.*
+	INTO			
+					#tmpDataCriterions 
+    FROM
+                    ncBtCriterion c
+    WHERE
+                    c.Id IN (SELECT Id FROM @IdList)
+
+	-- Fetch criterion from temp table
+	SELECT
+					* 
+	FROM
+					#tmpDataCriterions
+
+	-- Fetch operator ids from temp table as a new id list
+	DECLARE @OperatorIdList AS [IdList];
+	INSERT INTO
+					@OperatorIdList
+		SELECT DISTINCT
+					OperatorId AS Id
+		FROM
+					#tmpDataCriterions
+	
+	-- Fetch data types using stored procedure
+	EXEC			[OperatorGetByIdsStp]
+					@IdList = @OperatorIdList
+END
+
+]]>
+</Action>
+
+<Action runat="install" undo="false" alias="ExecuteSql">
+<![CDATA[
+
+-- =============================================
+-- Author:		SLY
+-- Create date: <2015-04-16>
+-- =============================================
+CREATE PROCEDURE [CriterionGroupGetByIdsStp] 
+	@IdList AS [IdList] READONLY
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	-- Fetch criterion groups as temp table
+    SELECT
+                    cg.*
+	INTO			
+					#tmpDataCriterionGroup
+    FROM
+                    ncBtCriterionGroup cg
+    WHERE
+                    cg.Id IN (SELECT Id FROM @IdList)
+
+	-- Fetch criterion group from temp table
+	SELECT
+					* 
+	FROM
+					#tmpDataCriterionGroup
+
+	-- Fetch operator ids from temp table as a new id list
+	DECLARE @CriterionGroupIdList AS [IdList];
+	INSERT INTO
+					@CriterionGroupIdList
+		SELECT DISTINCT
+					Id AS Id
+		FROM
+					#tmpDataCriterionGroup
+	
+	-- Fetch data types using stored procedure
+	EXEC			[CriterionGetByCriterionGroupIdsStp]
+					@IdList = @CriterionGroupIdList
+END
+
+]]>
+</Action>
+
+<Action runat="install" undo="false" alias="ExecuteSql">
+<![CDATA[
+
+-- =============================================
+-- Author:		SLY
+-- Create date: <2015-04-16>
+-- =============================================
+CREATE PROCEDURE [CriterionGetByIdStp] 
+	@Id int = 0
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	-- Convert to list and call stored procedure for lists
+	DECLARE @IdList AS [IdList];
+	INSERT INTO @IdList (Id) VALUES (@Id)
+	EXEC			[CriterionGetByIdsStp]
+					@IdList = @IdList
+END
+
+]]>
+</Action>
+
+<Action runat="install" undo="false" alias="ExecuteSql">
+<![CDATA[
+
+-- =============================================
+-- Author:		SLY
+-- Create date: <2015-04-16>
+-- =============================================
+CREATE PROCEDURE [CriterionGetByCriterionGroupIdStp] 
+	@Id int = 0
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	-- Convert to list and call stored procedure for lists
+	DECLARE @IdList AS [IdList];
+	INSERT INTO @IdList (Id) VALUES (@Id)
+	EXEC			[CriterionGetByCriterionGroupIdsStp]
+					@IdList = @IdList
+END
+
+]]>
+</Action>
+
+<Action runat="install" undo="false" alias="ExecuteSql">
+<![CDATA[
+
+-- =============================================
+-- Author:		SLY
+-- Create date: <2015-04-16>
+-- =============================================
+CREATE PROCEDURE [CriterionGroupGetBySegmentIdsStp] 
+	@IdList AS [IdList] READONLY
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	-- Fetch criterion groups as temp table
+    SELECT
+                    c.*
+	INTO			
+					#tmpDataCriterionGroups
+    FROM
+                    ncBtCriterionGroup c
+    WHERE
+                    c.SegmentId IN (SELECT Id FROM @IdList)
+
+	-- Fetch criterion groups from temp table
+	SELECT
+					* 
+	FROM
+					#tmpDataCriterionGroups
+
+	-- Fetch criterion group ids from temp table as a new id list
+	DECLARE @CriterionIdList AS [IdList];
+	INSERT INTO
+					@CriterionIdList
+		SELECT DISTINCT
+					Id
+		FROM
+					#tmpDataCriterionGroups
+	
+	-- Fetch criterions using stored procedure
+	EXEC			[CriterionGetByCriterionGroupIdsStp]
+					@IdList = @CriterionIdList
+END
+
+]]>
+</Action>
+
+<Action runat="install" undo="false" alias="ExecuteSql">
+<![CDATA[
+
+-- =============================================
+-- Author:		SLY
+-- Create date: <2015-04-16>
+-- =============================================
+CREATE PROCEDURE [CriterionGroupGetByIdStp] 
+	@Id int = 0
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	DECLARE @IdList AS [IdList];
+	INSERT INTO @IdList (Id) VALUES (@Id)
+	EXEC			[CriterionGroupGetByIdsStp]
+					@IdList = @IdList
+END
+
+]]>
+</Action>
+
+<Action runat="install" undo="false" alias="ExecuteSql">
+<![CDATA[
+
+-- =============================================
+-- Author:		SLY
+-- Create date: <2015-04-16>
+-- =============================================
+CREATE PROCEDURE [CriterionGroupGetBySegmentIdStp] 
+	@Id int = 0
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	-- Convert to list and call stored procedure for lists
+	DECLARE @IdList AS [IdList];
+	INSERT INTO @IdList (Id) VALUES (@Id)
+	EXEC			[CriterionGroupGetBySegmentIdsStp]
+					@IdList = @IdList
+END
+
+]]>
+</Action>
+
+<Action runat="install" undo="false" alias="ExecuteSql">
+<![CDATA[
+
+-- =============================================
+-- Author:		SLY
+-- Create date: <2015-04-16>
+-- =============================================
+CREATE PROCEDURE [SegmentGetAllStp] 
+
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	-- Fetch segment as temp table
+    SELECT
+                    s.*
+	INTO			
+					#tmpDataSegment
+    FROM
+                    ncBtSegment s
+
+	-- Fetch segment from temp table
+	SELECT
+					* 
+	FROM
+					#tmpDataSegment
+
+	-- Fetch segment ids from temp table as a new id list
+	DECLARE @SegmentIdList AS [IdList];
+	INSERT INTO
+					@SegmentIdList
+		SELECT DISTINCT
+					Id AS Id
+		FROM
+					#tmpDataSegment
+
+	-- Fetch criterion groups using stored procedure
+	EXEC			[CriterionGroupGetBySegmentIdsStp]
+					@IdList = @SegmentIdList
+END
+
+]]>
+</Action>
+
+<Action runat="install" undo="false" alias="ExecuteSql">
+<![CDATA[
+
+-- =============================================
+-- Author:		SLY
+-- Create date: <2015-04-16>
+-- =============================================
+CREATE PROCEDURE [SegmentGetByIdsStp] 
+	@IdList AS [IdList] READONLY
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	-- Fetch segment as temp table
+    SELECT
+                    s.*
+	INTO			
+					#tmpDataSegment
+    FROM
+                    ncBtSegment s
+    WHERE
+                    s.Id IN (SELECT Id FROM @IdList)
+
+	-- Fetch segment from temp table
+	SELECT
+					* 
+	FROM
+					#tmpDataSegment
+
+	-- Fetch segment ids from temp table as a new id list
+	DECLARE @SegmentIdList AS [IdList];
+	INSERT INTO
+					@SegmentIdList
+		SELECT DISTINCT
+					Id AS Id
+		FROM
+					#tmpDataSegment
+
+	-- Fetch criterion groups using stored procedure
+	EXEC			[CriterionGroupGetBySegmentIdsStp]
+					@IdList = @SegmentIdList
+END
+
+]]>
+</Action>
+
+<Action runat="install" undo="false" alias="ExecuteSql">
+<![CDATA[
+
+-- =============================================
+-- Author:		SLY
+-- Create date: <2015-04-16>
+-- =============================================
+CREATE PROCEDURE [SegmentGetByIdStp] 
+	@Id int = 0
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	-- Convert to list and call stored procedure for lists
+	DECLARE @IdList AS [IdList];
+	INSERT INTO @IdList (Id) VALUES (@Id)
+	EXEC			[SegmentGetByIdsStp]
+					@IdList = @IdList
+END
+
+]]>
+</Action>
+
+<Action runat="install" undo="false" alias="ExecuteSql">
+<![CDATA[
+
+-- =============================================
+-- Author:		SLY
+-- Create date: <2015-04-16>
+-- =============================================
+CREATE PROCEDURE [SegmentGetByAliasMultipleStp] 
+	@AliasList AS [AliasList] READONLY
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	-- Convert to list and call stored procedure for lists
+	DECLARE @IdList AS [IdList];
+	INSERT INTO @IdList SELECT Id FROM ncBtSegment WHERE Alias IN (SELECT * FROM @AliasList)
+	EXEC			[SegmentGetByIdsStp]
+					@IdList = @IdList
+END
+
+]]>
+</Action>
+
+<Action runat="install" undo="false" alias="ExecuteSql">
+<![CDATA[
+
+-- =============================================
+-- Author:		SLY
+-- Create date: <2015-04-16>
+-- =============================================
+CREATE PROCEDURE [SegmentGetByAliasStp] 
+	@Alias varchar(255)
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	-- Convert to list and call stored procedure for lists
+	DECLARE @AliasList AS [AliasList];
+	INSERT INTO @AliasList (Alias) VALUES (@Alias)
+	EXEC			[SegmentGetByAliasMultipleStp]
+					@AliasList = @AliasList
+END
+
+]]>
+</Action>
+
+<Action runat="install" undo="true" alias="AddScheduledTask" scheduledTaskAlias="ncBtScheduledTaskHandler" log="true" interval="600" url="/umbraco/plugins/ncBehaviouralTargeting/ScheduledTaskHandler.ashx" />
+
+<Action runat="install" undo="true" alias="AddAppConfigKey" key="ncbtEmailSender" value="info@novicell.dk"></Action>
+<Action runat="install" undo="true" alias="AddAppConfigKey" key="ncbtDriver" value="mongodb"></Action>
+<Action runat="install" undo="true" alias="AddAppConfigKey" key="ncbtConnectionString" value="[connectionstring]"></Action>
+<Action runat="install" undo="true" alias="AddAppConfigKey" key="ncbtDatabaseName" value="[database]"></Action>
+<Action runat="install" undo="true" alias="AddAppConfigKey" key="ncbtDriverMongoCollection" value="[collection]"></Action>
+
+<Action runat="install" alias="GrantPermissionForApp" userLogin="$CurrentUser" appName="ncbt" />
+
+<Action runat="install" undo="true" alias="AddLanguageFileKey" language="en" position="end" area="ncbt" key="ncbt" value="Behavioral Targeting" />  

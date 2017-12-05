@@ -1,0 +1,146 @@
+﻿.criteria-group {
+    border: 1px solid #d9d9d9;
+    margin-right: 10px;
+    margin-bottom: 30px;
+
+    .criteria-group-header {
+        border-bottom: 1px solid #d9d9d9;
+
+        h5 {
+            margin: 0;
+            padding: 10px;
+        }
+
+        select {
+            float: right;
+            margin: 5px 10px;
+        }
+    }
+
+    hr {
+        margin: 0;
+    }
+
+    .criteria-group-operator {
+        font-size: 13px;
+        font-weight: bold;
+        color: #b3b3b3;
+        text-transform: uppercase;
+        margin: 0;
+        padding: 5px 10px;
+        text-align: center;
+
+        &.add {
+            cursor: pointer;
+        }
+    }
+
+    .criteria-group-item {
+        padding: 10px;
+
+        &.ui-sortable-helper {
+            .criteria-group-item-description,
+            .criteria-group-operator,
+            hr {
+                display: none;
+            }
+        }
+
+        .btn-operator {
+            text-align: left;
+
+            .caret {
+                right: 9px;
+                position: absolute;
+            }
+        }
+
+        .criteria-group-item-actions {
+            float:right;
+            text-align: right;
+            font-size: 20px;
+            padding: 4px 0;
+            color: #b3b3b3;
+        }
+
+        .criteria-group-item-config {
+            margin-right: 50px;
+
+            .btn-group+.btn-group {
+                margin-left: 0;
+            }
+        }
+
+        .criteria-group-item-description {
+            padding: 2px 0;
+            font-style: italic;
+            min-height: 25px;
+
+            dl {
+                margin: 10px 0 0 0;
+
+                dt {
+                    width: 100px;
+                }
+
+                dd {
+                    margin-left: 120px;
+                }
+            }
+        }
+
+        input[class*="span"],
+        select[class*="span"],
+        textarea[class*="span"],
+        .uneditable-input[class*="span"] {
+            float: left;
+        }
+    }
+}
+
+.criteria-results {
+    border: 1px solid #d9d9d9;
+
+    .criteria-results-header {
+        border-bottom: 1px solid #d9d9d9;
+
+        h5 {
+            margin: 0;
+            padding: 10px;
+        }
+    }
+
+    .criteria-results-chart {
+    }
+
+    .criteria-results-chart-details {
+        margin-top: -140px;
+        position: absolute;
+        width: 355px;
+
+        .metric {
+            text-align: center;
+        }
+
+        .share {
+            text-align: center;
+            font-size: 25px;
+        }
+    }
+
+    .criteria-results-details {
+        width: 100%;
+        border-top: 1px solid #d9d9d9;
+        padding: 5px 0;
+
+        .metric {
+            text-align: center;
+            color: #999;
+        }
+
+        .share {
+            text-align: center;
+            font-size: 17px;
+        }
+    }
+}

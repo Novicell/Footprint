@@ -1,0 +1,7 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ncBehaviouralTargeting.Library.Models.NcbtEmailModel>
+@{
+    Layout = null;
+}
+
+<h1>@Model.Content.Name</h1>
+<pre>@(Json.Encode(Model.Visitor))</pre>

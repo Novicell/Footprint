@@ -1,0 +1,9 @@
+﻿/App_Plugins/ncBehaviouralTargeting
+/bin/ncBehaviouralTargetingTest.Library.dll
+
+
+
+This package references the assembly 'MongoDB.Driver' which was not found
+This package references the assembly 'MongoDB.Bson' which was not found
+This package references the assembly 'NPoco' which was not found
+This package references the assembly 'MongoDB.Driver.Core' which was not found

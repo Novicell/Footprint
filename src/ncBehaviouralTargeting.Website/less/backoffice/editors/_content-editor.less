@@ -1,0 +1,66 @@
+﻿.ncbt-control-group {
+    border-bottom: 0;
+    padding-bottom: 0;
+    margin-bottom: 0 !important;
+}
+
+.ncbt-control-tabs {
+    border-bottom: 0;
+    margin: 0;
+    position: absolute;
+    font-size: 13px;
+
+    li {
+        & > a {
+            color: #000;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        &.active {
+            & > a {
+                border-bottom-color: transparent;
+            }
+        }
+    }
+
+    i {
+        color: #ddd;
+    }
+
+    .ncbt-control-tab-add {
+        
+    }
+}
+
+.ncbt-control-header {
+    float: right;
+    font-size: 13px;
+    font-weight: bold;
+    color: #b3b3b3;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 10px 1px;
+}
+
+.ncbt-control-editor {
+    margin-top: 30px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    border-top-left-radius: 0;
+
+    .radio input[type="radio"],
+    .checkbox input[type="checkbox"] {
+        float: none;
+        margin-left: 0;
+    }
+
+    & > * {
+    }
+
+    .umb-editor {
+        min-width: 99%;
+    }
+}
