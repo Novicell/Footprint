@@ -3,6 +3,9 @@ Footprint is a behavioral targeting and marketing automation plugin for the Umbr
 https://our.umbraco.org/projects/website-utilities/footprint/
 - PS made by www.novicell.dk
 
+## Source and help wanted
+At time of writing the source is a bit messy. (A bunch of external libraries was included in the project) If someon has time for cleanup and updating please do so and throw us a pull request. :)
+
 ## Footprint using Javascript
 
 The Novicell Footprint Umbraco package provides a JavaScript interface (footprint.js) to the back-end Footprint API for the current visitor.
