@@ -1,4 +1,7 @@
 # Welcome to the Footprint documentation.
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/Novicell/Footprint.svg)](https://greenkeeper.io/)
+
 Footprint is a behavioral targeting and marketing automation plugin for the Umbraco CMS.
 https://our.umbraco.org/projects/website-utilities/footprint/
 - PS made by www.novicell.dk
